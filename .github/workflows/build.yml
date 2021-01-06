@@ -64,10 +64,10 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          path: /tmp/.buildx-cache1
+          key: ${{ runner.os }}-buildx1-${{ github.sha }}
           restore-keys: |
-             ${{ runner.os }}-buildx-
+             ${{ runner.os }}-buildx1-
 
       - name: Build for test full blown amd64 
         uses: docker/build-push-action@v2
@@ -78,8 +78,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: false
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
+          cache-from: type=local,src=/tmp/.buildx-cache1
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache1
           tags: fhem/alexa-fhem:${{ steps.buildVars.outputs.VARIANT }}
           build-args: |
             BUILD_DATE=${{ steps.buildVars.outputs.BUILD_DATE }}
@@ -150,10 +150,10 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          path: /tmp/.buildx-cache2
+          key: ${{ runner.os }}-buildx2-${{ github.sha }}
           restore-keys: |
-           ${{ runner.os }}-buildx-
+           ${{ runner.os }}-buildx2-
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
@@ -170,8 +170,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
+          cache-from: type=local,src=/tmp/.buildx-cache2
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache2
           tags: |
             ghcr.io/${{ github.repository_owner }}/fhem/alexa-fhem:${{ steps.buildVars.outputs.TAG_ROLLING }}
 
