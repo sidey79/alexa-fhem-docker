@@ -1,4 +1,4 @@
-FROM debian:stretch-20211011-slim
+FROM debian:stretch-20220125-slim
 ARG TARGETPLATFORM
 
 
